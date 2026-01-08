@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lookbook — NEVER RUN OUT</title>
+
+<style>
+:root{
+  --bg:#f5f3ef;
+  --fg:#111;
+  --muted:#777;
+  --line:#ddd;
+  --max:1200px;
+  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--sans);
+}
+
+a{color:inherit;text-decoration:none}
+
+/* NAV (메인과 동일) */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:rgba(245,243,239,.85);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  z-index:10;
+}
+.nav{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 20px;
+}
+.brand{
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.menu{
+  display:flex;
+  gap:20px;
+  font-size:13px;
+  text-transform:uppercase;
+}
+
+/* HERO */
+.hero{
+  margin-top:80px;
+  min-height:80vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+}
+.hero h1{
+  font-size:clamp(64px,10vw,160px);
+  font-weight:900;
+  line-height:.85;
+  margin:0;
+}
+.hero p{
+  margin-top:20px;
+  font-size:14px;
+  color:var(--muted);
+  max-width:48ch;
+}
+
+/* LOOK SECTIONS */
+.look{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  padding:140px 20px;
+  max-width:var(--max);
+  margin:auto;
+}
+.look:nth-child(even){
+  grid-template-columns:1fr 1fr;
+  direction:rtl;
+}
+.look:nth-child(even) *{
+  direction:ltr;
+}
+.look img{
+  width:100%;
+  display:block;
+}
+.look h2{
+  font-size:clamp(36px,5vw,72px);
+  margin:0;
+  line-height:.95;
+}
+.look p{
+  margin-top:20px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:46ch;
+}
+
+/* FULL IMAGE */
+.full{
+  min-height:100vh;
+  background-size:cover;
+  background-position:center;
+}
+
+/* BIG TYPE */
+.big{
+  padding:160px 20px;
+  text-align:center;
+  font-size:clamp(80px,14vw,200px);
+  font-weight:900;
+  line-height:.8;
+}
+
+/* FOOTER */
+footer{
+  background:#111;
+  color:#fff;
+  padding:80px 20px;
+}
+.footer-inner{
+  max-width:var(--max);
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+footer p{
+  color:#aaa;
+  font-size:14px;
+}
+
+@media (max-width:900px){
+  .look{
+    grid-template-columns:1fr;
+    padding:100px 20px;
+  }
+  .look:nth-child(even){
+    direction:ltr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="brand">NEVER RUN OUT</a>
+    <nav class="menu">
+      <a href="ttest.html">Home</a>
+      <a href="#">Shop</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="#">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>LOOKBOOK<br>VOL.01</h1>
+    <p>
+      A study of silhouette, restraint, and daily uniform.
+      Shot without trends in mind.
+    </p>
+  </div>
+</section>
+
+<!-- LOOK 01 -->
+<section class="look">
+  <img src="look1.jpg" alt="">
+  <div>
+    <h2>Look 01<br>Urban Stillness</h2>
+    <p>
+      Soft tailoring meets daily movement.
+      Designed to remain invisible — until noticed.
+    </p>
+  </div>
+</section>
+
+<!-- FULL IMAGE -->
+<div class="full" style="background-image:url('look2.jpg')"></div>
+
+<!-- LOOK 02 -->
+<section class="look">
+  <img src="look3.jpg" alt="">
+  <div>
+    <h2>Look 02<br>Quiet Structure</h2>
+    <p>
+      Balanced proportions with no emphasis.
+      Clothing that follows the body, not the moment.
+    </p>
+  </div>
+</section>
+
+<!-- FULL IMAGE -->
+<div class="full" style="background-image:url('look4.jpg')"></div>
+
+<!-- LOOK 03 -->
+<section class="look">
+  <img src="look2.jpg" alt="">
+  <div>
+    <h2>Look 03<br>Everyday Form</h2>
+    <p>
+      Reduced palette, extended lifespan.
+      Designed for repetition — not replacement.
+    </p>
+  </div>
+</section>
+
+<div class="big">NEVER<br>RUN OUT</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>NEVER RUN OUT</h3>
+      <p>Independent fashion studio.<br>Designed globally.</p>
+    </div>
+    <div>
+      <p>
+        Instagram<br>
+        Newsletter<br>
+        Contact
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
