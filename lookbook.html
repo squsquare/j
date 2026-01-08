@@ -6,149 +6,163 @@
 <title>Lookbook — NEVER RUN OUT</title>
 
 <style>
+/* === PARALLAX STORY === */
 :root{
-  --bg:#f5f3ef;
-  --fg:#111;
-  --muted:#777;
-  --line:#ddd;
-  --max:1200px;
-  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --sky: 0; /* 0=night, 1=day (JS가 스크롤로 바꿈) */
 }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:var(--sans);
+.parallax-story{
+  position: relative;
+  height: 220vh;           /* 스크롤 길이 */
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #000;
 }
 
-a{color:inherit;text-decoration:none}
-
-/* NAV (메인과 동일) */
-header{
-  position:fixed;
-  top:0;left:0;right:0;
-  background:rgba(245,243,239,.85);
-  backdrop-filter:blur(6px);
-  border-bottom:1px solid var(--line);
-  z-index:10;
+/* 배경: 밤→낮 그라데이션 */
+.story-bg{
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+  transform: translate3d(0,0,0);
 }
-.nav{
-  max-width:var(--max);
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 20px;
+.story-bg.night{
+  background:
+    radial-gradient(800px 500px at 20% 20%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(900px 600px at 80% 30%, rgba(110,160,255,.10), transparent 60%),
+    linear-gradient(180deg, #05070c 0%, #0b1020 45%, #0b0c12 100%);
+  opacity: calc(1 - var(--sky));
 }
-.brand{
-  font-weight:900;
-  letter-spacing:.04em;
-}
-.menu{
-  display:flex;
-  gap:20px;
-  font-size:13px;
-  text-transform:uppercase;
+.story-bg.day{
+  background:
+    radial-gradient(900px 600px at 20% 20%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(900px 700px at 80% 25%, rgba(255,210,140,.22), transparent 65%),
+    linear-gradient(180deg, #cfe8ff 0%, #f7efe6 55%, #f5f3ef 100%);
+  opacity: var(--sky);
 }
 
-/* HERO */
-.hero{
-  margin-top:80px;
-  min-height:80vh;
-  display:grid;
-  place-items:center;
-  text-align:center;
+/* 전경 레이어 say: 먼 요소는 천천히, 가까운 요소는 빠르게 */
+.story-layer{
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
 }
-.hero h1{
-  font-size:clamp(64px,10vw,160px);
-  font-weight:900;
-  line-height:.85;
-  margin:0;
-}
-.hero p{
-  margin-top:20px;
-  font-size:14px;
-  color:var(--muted);
-  max-width:48ch;
+.story-layer .floating{
+  position: absolute;
+  will-change: transform, opacity;
+  transform: translate3d(0,0,0);
 }
 
-/* LOOK SECTIONS */
-.look{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-  padding:140px 20px;
-  max-width:var(--max);
-  margin:auto;
-}
-.look:nth-child(even){
-  grid-template-columns:1fr 1fr;
-  direction:rtl;
-}
-.look:nth-child(even) *{
-  direction:ltr;
-}
-.look img{
-  width:100%;
-  display:block;
-}
-.look h2{
-  font-size:clamp(36px,5vw,72px);
-  margin:0;
-  line-height:.95;
-}
-.look p{
-  margin-top:20px;
-  color:var(--muted);
-  line-height:1.7;
-  max-width:46ch;
+/* 큰 타이포 */
+.story-title{
+  top: 14vh;
+  left: 6vw;
+  font-weight: 900;
+  line-height: .85;
+  letter-spacing: -.02em;
+  font-size: clamp(56px, 8vw, 140px);
+  color: rgba(255,255,255,.92);
+  mix-blend-mode: difference;
 }
 
-/* FULL IMAGE */
-.full{
-  min-height:100vh;
-  background-size:cover;
-  background-position:center;
+/* 서브 카피 */
+.story-copy{
+  top: 38vh;
+  left: 6vw;
+  max-width: 52ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.75);
+  mix-blend-mode: difference;
 }
 
-/* BIG TYPE */
-.big{
-  padding:160px 20px;
-  text-align:center;
-  font-size:clamp(80px,14vw,200px);
-  font-weight:900;
-  line-height:.8;
+/* 조립되는 “제품 카드” (3개 조각) */
+.assembly{
+  top: 64vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(920px, 92vw);
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 24px;
+  align-items: center;
+  pointer-events: none;
+}
+.assembly .frame{
+  position: relative;
+  height: 520px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.25);
+  box-shadow: 0 30px 70px rgba(0,0,0,.35);
+}
+.piece{
+  position: absolute;
+  inset: 0;
+  background: center/cover no-repeat;
+  opacity: .92;
+  filter: contrast(1.05) saturate(1.02);
+  will-change: transform, opacity;
 }
 
-/* FOOTER */
-footer{
-  background:#111;
-  color:#fff;
-  padding:80px 20px;
+/* 여기서 실제 이미지 넣기: piece1/2/3 */
+.piece.p1{ background-image: url('111.jpg'); }
+.piece.p2{ background-image: url('look3.jpg'); mix-blend-mode: screen; opacity: .55; }
+.piece.p3{ background-image: url('look2.jpg'); mix-blend-mode: overlay; opacity: .55; }
+
+/* 오른쪽 설명 박스 */
+.assembly .desc{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: 20px;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.9);
+  mix-blend-mode: difference;
 }
-.footer-inner{
-  max-width:var(--max);
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
+.assembly .desc h3{
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -.01em;
 }
-footer p{
-  color:#aaa;
-  font-size:14px;
+.assembly .desc p{
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+  font-size: 14px;
+}
+.assembly .desc .mini{
+  margin-top: 14px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .85;
 }
 
-@media (max-width:900px){
-  .look{
-    grid-template-columns:1fr;
-    padding:100px 20px;
+/* 스크롤 안내 */
+.scrollhint{
+  bottom: 10vh;
+  left: 6vw;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  mix-blend-mode: difference;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 900px){
+  .assembly{
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .look:nth-child(even){
-    direction:ltr;
-  }
+  .assembly .frame{ height: 420px; }
+  .story-title{ left: 5vw; }
+  .story-copy{ left: 5vw; right: 5vw; }
+  .scrollhint{ left: 5vw; }
 }
 </style>
 </head>
